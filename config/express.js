@@ -11,6 +11,7 @@ function setViews() {
   app.set('view engine', engine);
   console.log('+ View engine: %s', engine);
 
+  //const views = path.join(__dirname, '/views');
   const views = './views';
   app.set('views', views);
   console.log('+ Views directory: %s', views);

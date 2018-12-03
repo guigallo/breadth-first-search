@@ -1,1 +1,14 @@
-p #{data}
+html
+  body
+    table
+      tr
+        th link
+        th source
+        th target
+      each val in values
+        tr
+          td= val.source
+          td= val.link
+          td= val.target
+      else
+        li There are no values

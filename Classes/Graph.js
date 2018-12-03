@@ -1,5 +1,3 @@
-const sample = require('../data/sample-friendly-name').json();
-
 class Graph {
   constructor(json, args = {}) {
     this.graph = json;
@@ -11,6 +9,18 @@ class Graph {
     if(args.hasOwnProperty('end')) {
       console.log('implementar final busca');
     }
+  }
+
+  getFirstNode() {
+    return this.graph.nodes[0];
+  }
+
+  getNodeById(id) {
+    return this.graph.nodes.find(node => node.id === id);
+  }
+
+  getLinkById(linkId) {
+    return this.graph.links.find(link => link.id === linkId);
   }
 }
 

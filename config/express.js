@@ -1,4 +1,6 @@
 const express = require('express');
+const bodyParser = require('body-parser');
+const expressValidator = require('express-validator');
 const consign = require('consign');
 const app = express();
 
@@ -26,6 +28,12 @@ function enableCors() {
   console.log('+ Cross-Origin Resource Sharing: enabled');
 }
 
+function setMiddlewares() {
+  app.use(bodyParser.urlencoded({ extended: true }));
+  app.use(bodyParser.json());
+  app.use(expressValidator());
+}
+
 function autoLoad() {
   consign()
     .include('routes')
@@ -37,7 +45,7 @@ function loadErrorsPages() {
     res.status(404).render('errors/404');
   });
 
-  app.use((req, res, next) => {
+  app.use((error, req, res, next) => {
     res.status(500).render('errors/500');
   });
 }
@@ -45,6 +53,7 @@ function loadErrorsPages() {
 module.exports = function() {
   setViews();
   enableCors();
+  setMiddlewares();
   autoLoad();
   loadErrorsPages();
 

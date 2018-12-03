@@ -10,6 +10,9 @@
   "author": "Guilherme Gutierres Gallo",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.16.4"
+    "body-parser": "^1.18.3",
+    "consign": "^0.1.6",
+    "express": "^4.16.4",
+    "pug": "^2.0.3"
   }
 }

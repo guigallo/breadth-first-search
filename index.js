@@ -1,4 +1,5 @@
-let graph = require('./data/sample').json();
+//let graph = require('./data/sample').json();
+let graph = require('./data/sample-friendly-name').json();
 const Queue = require('./Classes/Queue');
 let queue = new Queue();
 
@@ -27,7 +28,7 @@ function processNode(node, message) {
     node.status = 'searched';
   
     if(message === undefined) {
-      console.log(`source: start\t\t\t\t\ttarget: ${node.id}`);
+      console.log(`source: start\ttarget: ${node.id}`);
     } else {
       console.log(message)
     }

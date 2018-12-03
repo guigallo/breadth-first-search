@@ -46,7 +46,6 @@ function processQueue() {
     const link = graph.links.find(link => link.id === queue.next());
     const targetNode = graph.nodes.find(node => node.id === link.target);
     
-    
     queue.freeSpace();
     
     const message = `source: ${link.source}\ttarget: ${link.target}`;

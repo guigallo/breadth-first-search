@@ -1,5 +1,5 @@
-const Graph = require('../Classes/Graph');
-const Queue = require('../Classes/Queue');
+const Graph = require('../classes/Graph');
+const Queue = require('../classes/Queue');
 
 let graph;
 let queue;

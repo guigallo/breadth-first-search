@@ -1,6 +1,6 @@
 let graph = require('./data/sample').json();
 //let graph = require('./data/sample-friendly-name').json();
-const Queue = require('./Classes/Queue');
+const Queue = require('./classes/Queue');
 let queue = new Queue();
 
 //startGraph({ start: '940ac7c2-44c3-4f76-8f44-58d019755ca9'});

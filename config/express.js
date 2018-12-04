@@ -2,6 +2,8 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const expressValidator = require('express-validator');
 const consign = require('consign');
+//const swaggerUi = require('swagger-ui-express');
+//const swaggerDocument = require('./swagger.json');
 const app = express();
 
 function setViews() {
@@ -13,7 +15,6 @@ function setViews() {
   app.set('view engine', engine);
   console.log('+ View engine: %s', engine);
 
-  //const views = path.join(__dirname, '/views');
   const views = './views';
   app.set('views', views);
   console.log('+ Views directory: %s', views);
@@ -55,6 +56,7 @@ module.exports = function() {
   setViews();
   enableCors();
   setMiddlewares();
+  //app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
   autoLoad();
   loadErrorsPages();
 

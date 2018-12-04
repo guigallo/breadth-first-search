@@ -1,0 +1,23 @@
+html
+  head
+    script(src="/js/form.js")
+
+  body
+    form(action="/breadth-first-search", method="post", enctype="multipart/form-data", accept="application/JSON")
+      p
+        input(
+          type='file'
+          id='uploadFile'
+          name='uploadFile'
+          checked=friendly
+        )
+
+      p
+        input(
+          id='submit'
+          type="submit"
+          value="Enviar arquivo"
+          disabled='true'
+        )
+
+    p(id='message')

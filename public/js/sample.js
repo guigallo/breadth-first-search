@@ -51,10 +51,10 @@ function showFullDetails(bool) {
   }
 }
 
-function loadScript() {
+function loadPage() {
   friendlyListener();
   fullDetailsListener();
   showFullDetails(fullDetails);
 }
 
-window.onload = loadScript;
+window.onload = loadPage;

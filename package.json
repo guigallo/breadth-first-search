@@ -4,7 +4,9 @@
   "description": "breadth-first search",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
+    "script": "node index.js",
+    "start": "node app.js",
+    "dev": "nodemon app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Guilherme Gutierres Gallo",

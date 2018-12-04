@@ -1,39 +1,36 @@
 let friendlyName = false;
 let fullDetails = false;
 
-function friendlyListener() {
-  const checkbox = document.getElementById('checkFriendly');
+function changeLocation() {
+  let location = '/breadth-first-search/sample?';
 
-  checkbox.addEventListener('change', (event) => {
-    if (event.target.checked) {
-      window.location = "/breadth-first-search/sample?friendlyName=true";
-    } else {
-      window.location = "/breadth-first-search/sample";
-    }
-  });
+  if(friendlyName)
+    location += 'friendlyName=true&';
+
+  if(fullDetails)
+    location += 'fullDetails=true';
+
+  window.location = location;
 }
 
-// parei aqui
-function setInternalParams() {
-  const url_string = window.location.href;
-  const url = new URL(url_string);
-  friendlyName = url.searchParams.get('friendlyName');
-  fullDetails = url.searchParams.get('fullDetails');
+function friendlyListener() {
+  const checkbox = document.getElementById('checkFriendly');
+  friendlyName = checkbox.checked;
 
-
-  console.log(friendlyName);
-  console.log(fullDetails);
+  checkbox.addEventListener('change', (event) => {
+    friendlyName = event.target.checked;
+    changeLocation();
+  });
 }
 
 function fullDetailsListener() {
   const checkbox = document.getElementById('checkFull');
+  fullDetails = checkbox.checked;
 
   checkbox.addEventListener('change', (event) => {
-    if (event.target.checked) {
-
-    } else {
-
-    }
+    fullDetails = event.target.checked;
+    showFullDetails(fullDetails);
+    changeLocation();
   })
 }
 
@@ -44,8 +41,8 @@ function showFullDetails(bool) {
   let toRemove = 'hide';
 
   if(! bool) {
-    toAdd = 'show';
-    toRemove = 'hide';
+    toAdd = 'hide';
+    toRemove = 'show';
   }
 
   for (let i = 0; i < canHide.length; i++) {
@@ -55,9 +52,9 @@ function showFullDetails(bool) {
 }
 
 function loadScript() {
-  //getParams();
   friendlyListener();
   fullDetailsListener();
+  showFullDetails(fullDetails);
 }
 
 window.onload = loadScript;

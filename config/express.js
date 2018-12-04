@@ -1,3 +1,4 @@
+const fs =  require('fs');
 const express = require('express');
 const bodyParser = require('body-parser');
 const expressValidator = require('express-validator');
@@ -5,6 +6,16 @@ const consign = require('consign');
 //const swaggerUi = require('swagger-ui-express');
 //const swaggerDocument = require('./swagger.json');
 const app = express();
+
+function checkUploadFolder() {
+  var dir = 'uploads';
+  if (!fs.existsSync(dir)){
+    fs.mkdirSync(dir);
+    console.log(`+ Create directory: ./${dir}`);
+  } else {
+    console.log(`+ Upload directory: ./${dir}`);
+  }
+}
 
 function setViews() {
   const pubDir = './public';
@@ -53,6 +64,7 @@ function loadErrorsPages() {
 }
 
 module.exports = function() {
+  checkUploadFolder();
   setViews();
   enableCors();
   setMiddlewares();

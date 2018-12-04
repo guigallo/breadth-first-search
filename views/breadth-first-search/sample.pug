@@ -1,14 +1,38 @@
 html
+  head
+    style
+      include css/sample.css
+    script(src="/js/sample.js")
+
   body
     table
       tr
-        th link
-        th source
+        th(class=['full']) link
+        th(class=['full']) source
         th target
       each val in values
         tr
-          td= val.source
-          td= val.link
+          td(class=['full'])= val.source
+          td(class=['full'])= val.link
           td= val.target
       else
-        li There are no values
+        tr
+          td Nothing to show
+
+    p
+      input(
+        type='checkbox'
+        id='checkFriendly'
+        name='checkFriendly'
+        checked=friendly
+      )
+      label(for='checkFriendly') Friendly Names
+
+    p
+      input(
+        type='checkbox'
+        id='checkFull'
+        name='checkFull'
+        checked=fullDetails
+      )
+      label(for='checkFull') Full details

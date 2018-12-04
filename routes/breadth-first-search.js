@@ -14,20 +14,30 @@ module.exports = app => {
 
   app.get('/breadth-first-search/sample', (req, res) => {
     let graph;
+
+    let friendly;
     if(req.query.friendlyName === 'true') {
+      friendly = true;
       graph = new Graph(sampleFriendly.json());
     } else {
+      friendly = false;
       graph = new Graph(sample.json());
     }
 
-    let search;
+    let fullDetails;
+    if(req.query.fullDetails === 'true') {
+      fullDetails = true;
+    } else {
+      fullDetails = false;
+    }
+
     try {
-      search = new SearchAlgorithm(graph);
+      const search = new SearchAlgorithm(graph);
       const result = search.start();
       
       res.format({
         html: () => {
-          res.render('breadth-first-search/sample', { values: result });
+          res.render('breadth-first-search/sample', { values: result, friendly, fullDetails });
         },
         json: () => {
           res.json(result);

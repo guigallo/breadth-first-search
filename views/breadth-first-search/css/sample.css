@@ -1,0 +1,7 @@
+.show {
+  display: table-cell;
+}
+
+.hide {
+  display: none;
+}

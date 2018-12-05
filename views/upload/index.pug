@@ -2,22 +2,32 @@ html
   head
     script(src="/js/upload.js")
 
+  include ../includes/header.pug
+
   body
-    form(action="/breadth-first-search", method="post", enctype="multipart/form-data", accept="application/JSON")
-      p
-        input(
-          type='file'
-          id='uploadFile'
-          name='uploadFile'
-          checked=friendly
-        )
+    div(class="main")
+      form(
+        class="pure-form pure-form-stacked"
+        action="/breadth-first-search"
+        method="post"
+        enctype="multipart/form-data"
+        accept="application/JSON"
+      )
+        fieldset
+          legend Select a json graph to upload
+          
+          input(
+            type='file'
+            id='uploadFile'
+            name='uploadFile'
+            checked=friendly
+          )
 
-      p
-        input(
-          id='submit'
-          type="submit"
-          value="Enviar arquivo"
-          disabled='true'
-        )
+          button(
+            class="pure-button pure-button-primary"
+            id='submit'
+            value="Enviar arquivo"
+            disabled='true'
+          ) Enviar arquivo
 
-    p(id='message')
+      p(id='message')

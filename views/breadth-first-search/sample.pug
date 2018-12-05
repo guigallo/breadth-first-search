@@ -4,35 +4,37 @@ html
       include css/sample.css
     script(src="/js/sample.js")
 
+  include ../includes/header.pug
   body
-    table
-      tr
-        th(class=['full']) link
-        th(class=['full']) source
-        th target
-      each val in values
+    div(class="main")
+      table
         tr
-          td(class=['full'])= val.source
-          td(class=['full'])= val.link
-          td= val.target
-      else
-        tr
-          td Nothing to show
+          th(class=['full']) link
+          th(class=['full']) source
+          th target
+        each val in values
+          tr
+            td(class=['full'])= val.source
+            td(class=['full'])= val.link
+            td= val.target
+        else
+          tr
+            td Nothing to show
 
-    p
-      input(
-        type='checkbox'
-        id='checkFriendly'
-        name='checkFriendly'
-        checked=friendly
-      )
-      label(for='checkFriendly') Friendly Names
+      p
+        input(
+          type='checkbox'
+          id='checkFriendly'
+          name='checkFriendly'
+          checked=friendly
+        )
+        label(for='checkFriendly') Friendly Names
 
-    p
-      input(
-        type='checkbox'
-        id='checkFull'
-        name='checkFull'
-        checked=fullDetails
-      )
-      label(for='checkFull') Full details
+      p
+        input(
+          type='checkbox'
+          id='checkFull'
+          name='checkFull'
+          checked=fullDetails
+        )
+        label(for='checkFull') Full details

@@ -1,10 +1,13 @@
-form(method='GET' action='/breadth-first-search/sample')
-  div.form-group
-    label(for='sample') Sample:
-    button#name.form-control(type='submit') Sample
+include ../includes/header.pug
 
-form(method='GET' action='/upload')
-  div.form-group
-    label(for='upload') Upload:
-    button#name.form-control(type='submit') Upload
-    
+div(class="main")
+  form(method='GET' action='/breadth-first-search/sample')
+    div.form-group
+      label(for='sample') Sample:
+      button#name.form-control(type='submit') Sample
+
+  form(method='GET' action='/upload')
+    div.form-group
+      label(for='upload') Upload:
+      button#name.form-control(type='submit') Upload
+      

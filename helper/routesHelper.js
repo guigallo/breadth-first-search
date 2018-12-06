@@ -22,11 +22,10 @@ module.exports = {
     return contentType;
   },
 
-  response(res, status, type, errors, message, view) {
-    console.log('response');
-    console.log(errors);
+  //response(res, status, type, errors, message, view) {
+  response(res, status, type, content, view) {
     res.status(status);
-    const content = messageOrError(errors, message);
+    //const content = messageOrError(errors, message);
 
     switch(type) {
       case 'render':

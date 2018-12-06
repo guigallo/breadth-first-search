@@ -44,13 +44,19 @@ module.exports =  {
     return message;
   },
 
-  validateFile(files) {
-    console.log(files.uploadFile.path);
-    //fs.readFileSync ler arquivo upado
+  fileToObject(files) {
     if(files.uploadFile !== undefined) {
-      return this.validateJson(files.uploadFile);
+      const data = fs.readFileSync(files.uploadFile.path, 'utf-8');
+      const json = JSON.parse(data);
+
+      const validateJson = this.validateJson(json);
+      if(validateJson.length > 0) {
+        return { errors: validateJson };
+      }
+
+      return json;
     } else {
-      return ['file invalid'];
+      return { errors: ['file invalid'] };
     }
   }
 }

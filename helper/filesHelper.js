@@ -1,6 +1,7 @@
 const fs = require('fs');
 
 module.exports = {
+  // deprecated
   move(files) {
     if(files.uploadFile !== undefined) {
       const oldpath = files.uploadFile.path;
@@ -26,13 +27,11 @@ module.exports = {
     if(body !== undefined) {
       const json = JSON.stringify(body);
       const fileName = `uploads/${new Date().getTime()}.json`;
-      fs.writeFile(fileName , json, function(err) {
-        if(err) {
-          console.log(err);
-          return false;
-        }
+      fs.writeFileSync(fileName , json, function(err) {
+        if(err)
+          throw new Error('File not save');
       });
-
+      
       return true;
     } else {
       return false;

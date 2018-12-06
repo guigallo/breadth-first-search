@@ -4,17 +4,19 @@ const filesHelper = require('../helper/filesHelper');
 const graphHelper = require('../helper/graphHelper');
 
 function formData(req) {
+  const errorsMessage = [];
+
   return new Promise((resolve, reject) => {
     let form = new formidable.IncomingForm();
     form.parse(req, function (err, fields, files) {
-      const errorsMessage = [];
-      const validateErrors = graphHelper.validateFile(files);
-      if(validateErrors.length > 0) {
+
+      const object = graphHelper.fileToObject(files);
+      if(object.hasOwnProperty('errors')) {
         errorsMessage.push('json not valid');
-        errorsMessage.push(...validateErrors);
+        errorsMessage.push(...object.errors);
         reject(errorsMessage)
       } else {
-        resolve(files);
+        resolve(object);
       }
     });
   });
@@ -26,7 +28,7 @@ function validateGraphRequest(req) {
     switch(routesHelper.getContentType(req)) {
       case 'multipart/form-data':
         formData(req)
-          .then(() => filesHelper.move(files) ? resolve() : reject(['Please send an JSON']))
+          .then((json) => filesHelper.saveJson(json) ? resolve(json) : reject(['Please send an JSON']))
           .catch(errors => reject(errors));
         break;
 
@@ -48,31 +50,26 @@ function validateGraphRequest(req) {
   });
 }
 
+function response(res, status, content, view = '') {
+  res.format({
+    'text/html': () =>
+      routesHelper.response(res, status, 'render', content, view),
+    'application/json': () =>
+      routesHelper.response(res, status, 'json', { message: content}),
+    'default': () =>
+      routesHelper.response(res, 406, 'send', 'Not Acceptable')
+  })
+}
+
 module.exports = app => {
   app.route('/breadth-first-search')
     .get((req, res) => {
       res.send('get');
     })
 
-    .post((req, res) => {
-      
+    .post((req, res) => 
       validateGraphRequest(req)
-        .then(() => {
-          let errorsMessage = [];
-          res.format({
-            'text/html':        () => routesHelper.response(res, 201, 'render', errorsMessage, 'File saved successfully', 'breadth-first-search/index'),
-            'application/json': () => routesHelper.response(res, 201, 'json', errorsMessage, { message: 'json received' }),
-            'default':          () => routesHelper.response(res, 406, 'send', errorsMessage, 'Not Acceptable')
-          });
-        })
-        .catch((err) => {
-          console.log(err);
-          console.log(5);
-          //reject(err)
-        });
-      });
-
-        /*
-      console.log('will response');
-    }); */
+        .then(obj => response(res, 201, 'File saved successfully', 'breadth-first-search/index'))
+        .catch(err => response(res, 400, err, 'breadth-first-search/index'))
+      );
 }

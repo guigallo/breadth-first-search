@@ -1,3 +1,5 @@
+const fs = require('fs');
+
 let message;
 
 function hasPropertyArray(json, property, value = 'json') {
@@ -43,6 +45,8 @@ module.exports =  {
   },
 
   validateFile(files) {
+    console.log(files.uploadFile.path);
+    //fs.readFileSync ler arquivo upado
     if(files.uploadFile !== undefined) {
       return this.validateJson(files.uploadFile);
     } else {

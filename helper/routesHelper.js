@@ -29,7 +29,7 @@ module.exports = {
 
     switch(type) {
       case 'render':
-        res.render(view, { message: content });
+        res.render(view, { content });
         break;
 
       case 'send':

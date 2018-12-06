@@ -2,7 +2,7 @@ let friendlyName = false;
 let fullDetails = false;
 
 function changeLocation() {
-  let location = '/breadth-first-search/sample?';
+  let location = '/sample?';
 
   if(friendlyName)
     location += 'friendlyName=true&';

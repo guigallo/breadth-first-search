@@ -2,6 +2,8 @@ const formidable = require('formidable');
 const routesHelper = require('../helper/routesHelper');
 const filesHelper = require('../helper/filesHelper');
 const graphHelper = require('../helper/graphHelper');
+const Graph = require('../classes/Graph');
+const SearchAlgorithm = require('../classes/SearchAlgorithm');
 
 function formData(req) {
   const errorsMessage = [];
@@ -55,21 +57,41 @@ function response(res, status, content, view = '') {
     'text/html': () =>
       routesHelper.response(res, status, 'render', content, view),
     'application/json': () =>
-      routesHelper.response(res, status, 'json', { message: content}),
+      routesHelper.response(res, status, 'json', content),
     'default': () =>
       routesHelper.response(res, 406, 'send', 'Not Acceptable')
   })
 }
 
 module.exports = app => {
-  app.route('/breadth-first-search')
+  app.route('/graphs')
     .get((req, res) => {
-      res.send('get');
+      filesHelper.getFiles()
+        .then(files => {
+          files.reverse();
+          res.status(200).render('graphs/index', { graphs: files, message: ''});
+        })
+        .catch(() => response(res, 400, 'No files to get', 'graphs/index'));
+
     })
 
     .post((req, res) => 
       validateGraphRequest(req)
-        .then(obj => response(res, 201, 'File saved successfully', 'breadth-first-search/index'))
-        .catch(err => response(res, 400, err, 'breadth-first-search/index'))
+        .then(file => response(res, 201, { id: file.id, message: 'File upload sucess' }, 'graphs/uploaded'))
+        .catch(err => response(res, 400, { message: 'JSON not valid' }, 'graphs/uploaded'))
       );
+
+  app
+  .get('/graphs/:id', (req, res) => {
+    filesHelper.getFileByName(req.params.id)
+      .then(file => {
+        const graph = new Graph(file.file);
+        const search = new SearchAlgorithm(graph);
+        const sequence = search.start();
+        
+        response(res, 200, { file, sequence }, 'graphs/graph')
+      })
+      .catch(() => response(res, 404, 'File not found'));
+  })
 }
+

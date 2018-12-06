@@ -1,4 +1,5 @@
 const fs = require('fs');
+const dateHelper = require('../helper/dateHelper');
 
 module.exports = {
   // deprecated
@@ -22,11 +23,50 @@ module.exports = {
       return false;
     }
   },
+  
+  getFiles() {
+    const graphs = []
+    return new Promise((resolve, reject) => {
+      fs.readdir('uploads/', (err, files) => {
+        files.forEach(file => {
+          //const value = JSON.parse(fs.readFileSync('uploads/' + file, 'utf-8'));
+          const stat = this.nameToStat(file);
+          //graphs.push({ stat, value });
+          graphs.push(stat);
+        });
+        graphs.length > 0 ? resolve(graphs) : reject();
+      })
+    });
+  },
+
+  getFileByName(name) {
+    const stat = this.nameToStat(name);
+    return new Promise((resolve, reject) => {
+      const file = JSON.parse(fs.readFileSync(`uploads/${name}.json`, 'utf-8'));
+
+      file ? resolve({ stat, file }) : reject();
+    });
+  },
+
+  nameToStat(file) {
+    const name = file.replace('.json', '');
+    const arr = name.split('_');
+    const url = '/graphs/' + name;
+    const date = new Date(parseInt(arr[0]));
+
+    return {
+      name, url, date,
+      dateString: dateHelper.dateToString(date),
+      id: arr[1],
+      links: arr[2],
+      nodes: arr[3],
+    }
+  },
 
   saveJson(body) {
     if(body !== undefined) {
       const json = JSON.stringify(body);
-      const fileName = `uploads/${new Date().getTime()}.json`;
+      const fileName = `uploads/${new Date().getTime()}_${body.id}_${body.links.length}_${body.nodes.length}.json`;
       fs.writeFileSync(fileName , json, function(err) {
         if(err)
           throw new Error('File not save');

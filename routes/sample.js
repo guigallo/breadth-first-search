@@ -4,7 +4,7 @@ const sample = require('../data/sample');
 const sampleFriendly = require('../data/sample-friendly-name');
 
 module.exports = app => {
-  app.get('/breadth-first-search/sample', (req, res) => {
+  app.get('/sample', (req, res) => {
     let graph;
 
     let friendly;
@@ -29,7 +29,7 @@ module.exports = app => {
       
       res.format({
         html: () => {
-          res.render('breadth-first-search/sample', { values: result, friendly, fullDetails });
+          res.render('graphs/sample', { values: result, friendly, fullDetails });
         },
         json: () => {
           res.json(result);

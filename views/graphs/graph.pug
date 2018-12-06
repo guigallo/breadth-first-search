@@ -1,0 +1,66 @@
+include ../includes/header.pug
+
+div(class="main")
+  h2 Graph
+
+  table(class="pure-table pure-table-horizontal pure-table-striped")
+    thead
+      tr
+        th Upload date
+        th Id
+        th Nodes
+        th Links
+
+    tbody
+      tr
+        td= content.file.stat.dateString
+        td= content.file.stat.id
+        td= content.file.stat.nodes
+        td= content.file.stat.links
+  hr
+
+  h2 Sequence
+  table(class="pure-table pure-table-horizontal pure-table-striped")
+    thead
+      tr
+        th Source ID
+        th Link ID
+        th Node ID
+
+    tbody
+      each order in content.sequence
+        tr
+          td= order.source
+          td= order.link
+          td= order.target
+  hr
+
+  h2 Nodes
+  table(class="pure-table pure-table-horizontal pure-table-striped")
+    thead
+      tr
+        th Node ID
+        th Type
+
+    tbody
+      each node in content.file.file.nodes
+        tr
+          td= node.id
+          td= node.extras.title
+  hr
+
+  h2 Links
+  table(class="pure-table pure-table-horizontal pure-table-striped")
+    thead
+      tr
+        th Link ID
+        th Source ID
+        th Target ID
+
+    tbody
+      each link in content.file.file.links
+        tr
+          td= link.id
+          td= link.source
+          td= link.target
+  hr

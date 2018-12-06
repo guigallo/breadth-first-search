@@ -1,0 +1,23 @@
+include ../includes/header.pug
+
+div(class="main")
+  p= message
+
+  table(class="pure-table pure-table-horizontal pure-table-striped")
+    thead
+      tr
+        th Upload date
+        th Id
+        th Nodes
+        th Links
+        th Search
+
+    tbody
+      each graph in graphs
+        tr
+          td= graph.dateString
+          td= graph.id
+          td= graph.nodes
+          td= graph.links
+          td
+            a(href=graph.url) Breadth-First Search

@@ -1,3 +1,14 @@
+.main {
+  margin: 0 auto;
+  width: fit-content;
+}
+
+.main a {
+  font-weight: bold;
+  color: black;
+  text-decoration: none;
+}
+
 .custom-wrapper {
   background-color: #1f8dd6;
   margin-bottom: 1em;

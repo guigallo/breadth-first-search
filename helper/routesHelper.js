@@ -1,13 +1,23 @@
-function messageOrError(errors, defaultMessage) {
-  let content;
+function response(res, status, type, content, view) {
+  res.status(status);
 
-  if(errors.length > 0) {
-    content = errors
-  } else {
-    content = defaultMessage;
+  switch(type) {
+    case 'render':
+      res.render(view, { content });
+      break;
+
+    case 'send':
+      res.send(content);
+      break;
+
+    case 'json':
+      res.json(content);
+      break;
+
+    default:
+      res.send('Wrong response type');
+      break;
   }
-
-  return content;
 }
 
 module.exports = {
@@ -22,27 +32,14 @@ module.exports = {
     return contentType;
   },
 
-  //response(res, status, type, errors, message, view) {
-  response(res, status, type, content, view) {
-    res.status(status);
-    //const content = messageOrError(errors, message);
-
-    switch(type) {
-      case 'render':
-        res.render(view, { content });
-        break;
-
-      case 'send':
-        res.send(content);
-        break;
-
-      case 'json':
-        res.json(content);
-        break;
-
-      default:
-        res.send('Wrong response type');
-        break;
-    }
+  factoryResponse(res, status, content, view = '') {
+    res.format({
+      'text/html': () =>
+        response(res, status, 'render', content, view),
+      'application/json': () =>
+        response(res, status, 'json', content),
+      'default': () =>
+        response(res, 406, 'send', 'Not Acceptable')
+    })
   }
 }

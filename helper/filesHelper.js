@@ -28,12 +28,9 @@ module.exports = {
     const graphs = []
     return new Promise((resolve, reject) => {
       fs.readdir('uploads/', (err, files) => {
-        files.forEach(file => {
-          //const value = JSON.parse(fs.readFileSync('uploads/' + file, 'utf-8'));
-          const stat = this.nameToStat(file);
-          //graphs.push({ stat, value });
-          graphs.push(stat);
-        });
+        files.forEach(file =>
+          graphs.push(this.nameToStat(file))
+        );
         graphs.length > 0 ? resolve(graphs) : reject();
       })
     });

@@ -15,11 +15,11 @@ function processNode(node, link) {
       processed.push({ source: link.source, link: link.id, target: link.target });
     }
     
-    node.ports.forEach(port => {
-      port.links.forEach(link => {
-        queue.put(link);
-      });
-    });
+    node.ports.forEach(port =>
+      port.links.forEach(link =>
+        queue.put(link)
+      )
+    );
 
     processQueue();
   }

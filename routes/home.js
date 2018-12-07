@@ -1,6 +1,8 @@
+const routesHelper = require('../helper/routesHelper');
+
 module.exports = app => {
   app.route('/')
-    .get((req, res) => {
-      res.render('home/index');
-    })
+    .get((req, res) =>
+      routesHelper.factoryResponse(res, 200, { message: 'Nothing to show here' }, 'home/index')
+    )
 }

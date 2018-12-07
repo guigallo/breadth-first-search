@@ -18,9 +18,8 @@ function hasPropertyArray(json, property, value = 'json') {
 
 function hasProperties(name, obj, ...props) {
   props.forEach(prop => {
-    if(! obj.hasOwnProperty(prop)) {
+    if(! obj.hasOwnProperty(prop))
       message.push(`${name} has no property ${prop}`);
-    }
   });
 }
 

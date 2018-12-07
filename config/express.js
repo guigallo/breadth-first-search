@@ -3,9 +3,8 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const expressValidator = require('express-validator');
 const consign = require('consign');
-//const swaggerUi = require('swagger-ui-express');
-//const swaggerDocument = require('./swagger.json');
 const app = express();
+const routesHelper = require('../helper/routesHelper');
 
 function checkUploadFolder() {
   var dir = 'uploads';
@@ -44,6 +43,7 @@ function setMiddlewares() {
   app.use(bodyParser.urlencoded({ extended: true }));
   app.use(bodyParser.json());
   app.use(expressValidator());
+  console.log('+ Middlewares loaded');
 }
 
 function autoLoad() {
@@ -54,13 +54,15 @@ function autoLoad() {
 
 function loadErrorsPages() {
   app.use((req, res, next) => {
-    res.status(404).render('errors/404');
+    routesHelper.factoryResponse(res, 404, { message: 'not found' }, 'errors/404');
   });
 
   app.use((error, req, res, next) => {
-    console.log(error);
-    res.status(500).render('errors/500');
+    if (error)
+      console.log(error);
+    routesHelper.factoryResponse(res, 500, { error }, 'errors/404');
   });
+  console.log('+ Errors page loaded');
 }
 
 module.exports = function() {
@@ -68,7 +70,6 @@ module.exports = function() {
   setViews();
   enableCors();
   setMiddlewares();
-  //app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
   autoLoad();
   loadErrorsPages();
 

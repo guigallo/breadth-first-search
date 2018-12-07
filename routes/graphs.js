@@ -39,10 +39,11 @@ function validateGraphRequest(req) {
         if(validateErrors.length > 0)
           errorsMessage.push('json not valid', ...validateErrors);
 
-        if(errorsMessage.length === 0 && !filesHelper.saveJson(req.body))
+        const json = filesHelper.saveJson(req.body)
+        if(errorsMessage.length > 0 && json)
           errorsMessage.push('Please send an JSON on body request');
 
-        errorsMessage.length > 0 ? reject(['Please send an JSON']) : resolve();
+        errorsMessage.length > 0 ? reject(errorsMessage) : resolve(req.body.id);
         break;
 
       default:
@@ -52,46 +53,32 @@ function validateGraphRequest(req) {
   });
 }
 
-function response(res, status, content, view = '') {
-  res.format({
-    'text/html': () =>
-      routesHelper.response(res, status, 'render', content, view),
-    'application/json': () =>
-      routesHelper.response(res, status, 'json', content),
-    'default': () =>
-      routesHelper.response(res, 406, 'send', 'Not Acceptable')
-  })
-}
-
 module.exports = app => {
   app.route('/graphs')
-    .get((req, res) => {
+    .get((req, res) =>
       filesHelper.getFiles()
         .then(files => {
           files.reverse();
-          res.status(200).render('graphs/index', { graphs: files, message: ''});
+          routesHelper.factoryResponse(res, 200, { graphs: files, message: ''}, 'graphs/index')
         })
-        .catch(() => response(res, 400, 'No files to get', 'graphs/index'));
-
-    })
-
+        .catch(() => routesHelper.factoryResponse(res, 400, 'No files to get', 'graphs/index'))
+    )
     .post((req, res) => 
       validateGraphRequest(req)
-        .then(file => response(res, 201, { id: file.id, message: 'File upload sucess' }, 'graphs/uploaded'))
-        .catch(err => response(res, 400, { message: 'JSON not valid' }, 'graphs/uploaded'))
-      );
+        .then(id => routesHelper.factoryResponse(res, 201, { id, message: 'File upload sucess' }, 'graphs/uploaded'))
+        .catch(err => routesHelper.factoryResponse(res, 400, { message: err }, 'graphs/uploaded'))
+    );
 
   app
-  .get('/graphs/:id', (req, res) => {
+  .get('/graphs/:id', (req, res) =>
     filesHelper.getFileByName(req.params.id)
       .then(file => {
         const graph = new Graph(file.file);
         const search = new SearchAlgorithm(graph);
         const sequence = search.start();
         
-        response(res, 200, { file, sequence }, 'graphs/graph')
+        routesHelper.factoryResponse(res, 200, { file, sequence }, 'graphs/graph')
       })
-      .catch(() => response(res, 404, 'File not found'));
-  })
+      .catch(() => routesHelper.factoryResponse(res, 404, 'File not found'))
+  )
 }
-

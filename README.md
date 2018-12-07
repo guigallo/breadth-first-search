@@ -17,6 +17,9 @@ To run just the search algorithm (breadth-first search) and show nodes id in con
 ### `npm start`
 Start the application. Run the api and application web that can be access by [http://localhost:3000](http://localhost:3000). Also create sample files and upload folders at the first start.
 
+### Heroku
+The API is running at [Heroku](https://breadth-first-search.herokuapp.com/graphs)
+
 ## Documentation
 Open [https://documenter.getpostman.com/view/5550113/RzfgopXm](https://documenter.getpostman.com/view/5550113/RzfgopXm) to read documentation.
 

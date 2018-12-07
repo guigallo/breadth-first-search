@@ -1,7 +1,7 @@
 # breadth-first-search
 
 ## Introduction
-API can recieve graphs in json files and do breadth-first search to search all nodes and show informations about then.
+API can recieve graphs in json files and do breadth-first search all nodes and show informations about then.
 
 ## Overview
 Project can be used as API and web server to access in browser.
@@ -26,7 +26,7 @@ You can import the documentation in postman to access all the routes and test th
 Postman files can be found at:
 
 ### Collection
-`postman_collection.json` in the project's postman folder
+`postman_collection.json` in the project's `postman` folder
 
 ### Environment
-`postman_environment.json` in the project's postman folder
+`postman_environment.json` in the project's `postman` folder

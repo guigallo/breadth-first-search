@@ -36,10 +36,13 @@ function validateGraphRequest(req) {
 
       case 'application/json':
         const validateErrors = graphHelper.validateJson(req.body);
-        if(validateErrors.length > 0)
+        if(validateErrors.length > 0) {
           errorsMessage.push('json not valid', ...validateErrors);
+          reject(errorsMessage);
+          break;
+        }
 
-        const json = filesHelper.saveJson(req.body)
+        const json = filesHelper.saveJson(req.body);
         if(errorsMessage.length > 0 && json)
           errorsMessage.push('Please send an JSON on body request');
 

@@ -1,7 +1,13 @@
+const fileHelper = require('../helper/filesHelper');
+
 module.exports = {
+  save: function() {
+    fileHelper.saveJson(this.json(), new Date(1544123991581));
+  },
+
   json: function() {
     return {
-      "id": "090b5d19-73aa-45a7-b95d-0d2b480d9bbb",
+      "id": "friendly-names",
       "offsetX": 48.01944509627987,
       "offsetY": 102.11131657647991,
       "zoom": 84.98333333333322,

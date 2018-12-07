@@ -60,10 +60,11 @@ module.exports = {
     }
   },
 
-  saveJson(body) {
+  saveJson(body, date = new Date()) {
     if(body !== undefined) {
       const json = JSON.stringify(body);
-      const fileName = `uploads/${new Date().getTime()}_${body.id}_${body.links.length}_${body.nodes.length}.json`;
+      const fileName = `uploads/${date.getTime()}_${body.id}_${body.links.length}_${body.nodes.length}.json`;
+
       fs.writeFileSync(fileName , json, function(err) {
         if(err)
           throw new Error('File not save');

@@ -5,11 +5,15 @@ const expressValidator = require('express-validator');
 const consign = require('consign');
 const app = express();
 const routesHelper = require('../helper/routesHelper');
+const sample = require('../data/sample');
+const sampleFriendly = require('../data/sample-friendly-name');
 
 function checkUploadFolder() {
   var dir = 'uploads';
   if (!fs.existsSync(dir)){
     fs.mkdirSync(dir);
+    sample.save();
+    sampleFriendly.save();
     console.log(`+ Create directory: ./${dir}`);
   } else {
     console.log(`+ Upload directory: ./${dir}`);

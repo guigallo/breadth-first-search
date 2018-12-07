@@ -2,7 +2,7 @@
 	"info": {
 		"_postman_id": "fc63e247-4bdc-4f5c-a905-46b321ae0699",
 		"name": "Breadth-First Search",
-		"description": "# Introduction\nWhat does your API do?\n\n# Overview\nThings that the developers should know about\n\n# Authentication\nWhat is the preferred way of using the API?\n\n# Error Codes\nWhat errors and status codes can a user expect?\n\n# Rate limit\nIs there a limit to the number of requests an user can send?",
+		"description": "# Introduction\nAPI can recieve graphs in json files and do breadth-first search to search all nodes and show informations about then.\n\n# Overview\nProject can be used as API and web server to access in browser.",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
@@ -907,8 +907,7 @@
 											"        \"link has no property source\",",
 											"        \"link has no property target\",",
 											"        \"nodes has no property id\",",
-											"        \"nodes has no ports property\",",
-											"        \"Please send an JSON on body request\"",
+											"        \"nodes has no ports property\"",
 											"    ]",
 											"};",
 											"pm.test(\"Errors message\", function () {",
@@ -1310,6 +1309,28 @@
 					}
 				}
 			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "e092e077-1e98-4f05-a9aa-49cf5469315f",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "dad31754-fe45-4381-88b6-9e8dd8c0de08",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
 		}
 	]
 }

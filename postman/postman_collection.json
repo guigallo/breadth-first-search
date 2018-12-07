@@ -2,7 +2,7 @@
 	"info": {
 		"_postman_id": "fc63e247-4bdc-4f5c-a905-46b321ae0699",
 		"name": "Breadth-First Search",
-		"description": "# Introduction\nAPI can recieve graphs in json files and do breadth-first search to search all nodes and show informations about then.\n\n# Overview\nProject can be used as API and web server to access in browser.",
+		"description": "# Introduction\nAPI can recieve graphs in json files and do breadth-first search all nodes and show informations about then.\n\n# Overview\nProject can be used as API and web server to access in browser.",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
